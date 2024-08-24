@@ -1,0 +1,1 @@
+import{d as a,c as s,w as e,i as t,o,a as r}from"./index-BLw0-MTo.js";import{_ as n}from"./_plugin-vue_export-helper.BCo6x5W8.js";const d=n(a({data:()=>({}),methods:{}}),[["render",function(a,n,d,u,i,l){const p=t;return o(),s(p,null,{default:e((()=>[r("INDEX THIS")])),_:1})}]]);export{d as default};

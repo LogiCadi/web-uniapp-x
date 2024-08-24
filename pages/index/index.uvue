@@ -1,117 +1,20 @@
 <template>
-	<view>
-		<view style="display: flex;flex-direction: row; gap: 12rpx;padding: 12rpx;">
-			<view style="border: 1px solid #0f7bff; flex: 1; padding: 12rpx; border-radius: 8rpx;">
-				<input v-model="input" style="height: 100%;" placeholder="请输入基金代码 如161725" />
-			</view>
-			<button class="btn" @click="add">查询并添加</button>
-		</view>
-
-		<view>
-			<view v-for="(item, idx) in list"
-				style="display: flex;flex-direction: column;gap: 12rpx;padding: 16rpx; border-bottom: 1px solid #eee;"
-				@longpress="del(idx)">
-				<view style="font-size: 36rpx;font-weight: bold;display: flex;flex-direction: row;align-items: center;"
-					@longpress.stop="">
-					<view style="color:#0f7bff; margin-right: 8rpx;font-size: 36rpx;font-weight: bold">
-						{{item.gz.fundcode}}
-					</view>
-					{{item.gz.name}}
-				</view>
-				<view style="display: flex; flex-direction: row;gap:12rpx">
-					估值
-					<template v-if="item.gz.gsz">
-						<text>{{item.gz.gsz}}</text>
-						<text style="font-weight: bold;"
-							:style="{color: item.gz.gszzl> 0 ? 'red': 'green'}">{{item.gz.gszzl> 0 ? '+': ''}}{{item.gz.gszzl}}%</text>
-						<text>({{item.gz.gztime}})</text>
-					</template>
-					<text v-else style="color:#888">暂无</text>
-				</view>
-				<view style="display: flex; flex-direction: row; align-items: center;" @click="RSItap">
-					<text style="margin-right: 12rpx;">RSI(14)</text>
-					<text style="margin-right: 12rpx; font-weight: bold;"
-						:style="{color: item.rsi < 30 || item.rsi > 70 ? 'red':''}">{{item.rsi}}</text>
-					<icon type="info" size="18" color="#aaa"></icon>
-				</view>
-			</view>
-		</view>
-	</view>
+	<view>INDEX THIS</view>
 </template>
 
-<script setup>
-	import { baseUrl } from '@/common.uts'
-
-	let input = ref('')
-	let list = ref<any>([]) //定义一个响应式变量。类似于选项式的定义data
-
-	const add = () => {
-		if (!input.value) {
-			fetch()
-			return
-		}
-		let codes = uni.getStorageSync('fundcode') || '161725'
-		codes = codes.split(',').filter(e => e)
-		codes.unshift(input.value)
-		uni.setStorageSync('fundcode', codes.join(','))
-		input.value = ''
-
-		fetch()
-	}
-	onReady(() => {
-		// console.log("页面onReady触发") // 页面生命周期，编写页面加载后的逻辑
-
-		fetch()
-	})
-
-	const fetch = () => {
-		uni.showLoading({ title: '加载中...' })
-
-		uni.request({
-			url: `${baseUrl}/fund?ver=2&v=${uni.getStorageSync('fundcode') || '161725'}`,
-			complete(res) {
-				uni.hideLoading()
-				console.log('req com', res);
+<script>
+	export default {
+		data() {
+			return {
 				
-				if (res.statusCode !== 200) {
-					fetch()
-				} else {
-					list.value = res.data
-				}
 			}
-		})
-	}
-
-	const del = (idx) => {
-		uni.showModal({
-			title: '删除',
-			content: `是否删除${list.value[idx].gz.name}`,
-			success(res) {
-				if (res.confirm) {
-					list.value.splice(idx, 1)
-
-					let codes = uni.getStorageSync('fundcode') || '161725'
-					codes = codes.split(',').filter(e => e)
-					codes.splice(idx, 1)
-					uni.setStorageSync('fundcode', codes.join(','))
-				}
-			}
-		})
-	}
-
-	const RSItap = () => {
-		uni.showModal({
-			title: 'RSI',
-			showCancel: false,
-			content: `RSI指标是一种技术分析工具，用于衡量股票或其他证券价格在过去一段时间内的相对强弱，帮助投资者判断市场的超买或超卖状态，从而预测价格的潜在反转点。`
-		})
+		},
+		methods: {
+			
+		}
 	}
 </script>
 
-<style scope>
-	.btn {
-		font-size: 32rpx;
-		background-color: #0f7bff;
-		color: #FFF;
-	}
+<style>
+
 </style>
