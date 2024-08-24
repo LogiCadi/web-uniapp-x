@@ -1,0 +1,1 @@
+export const baseUrl = 'https://service-eumajiqw-1258011420.gz.apigw.tencentcs.com'
