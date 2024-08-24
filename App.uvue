@@ -38,14 +38,11 @@
 	html {
 		max-width: 1200px;
 		margin: auto;
-		font-size: 32rpx;
-	}
-	/*每个页面公共css */
-	.uni-row {
-		flex-direction: row;
 	}
 
-	.uni-column {
-		flex-direction: column;
+	* {
+		word-break: break-all !important;
+		word-wrap: break-word !important;
+		white-space: pre-wrap;
 	}
 </style>

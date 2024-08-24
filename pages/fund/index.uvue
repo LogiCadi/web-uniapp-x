@@ -4,34 +4,35 @@
 			<view style="border: 1px solid #0f7bff; flex: 1; padding: 12rpx; border-radius: 8rpx;">
 				<input v-model="input" style="height: 100%;" placeholder="请输入基金代码 如161725" />
 			</view>
-			<button class="btn" @click="add">查询并添加</button>
+			<button class="btn" @click="add">添加并查询</button>
 		</view>
 
 		<view>
 			<view v-for="(item, idx) in list"
 				style="display: flex;flex-direction: column;gap: 12rpx;padding: 16rpx; border-bottom: 1px solid #eee;"
 				@longpress="del(idx)">
-				<view style="font-size: 36rpx;font-weight: bold;display: flex;flex-direction: row;align-items: center;"
+				<div style="font-size: 18px;font-weight: bold;display: flex;flex-direction: row; flex-wrap: wrap; align-items: center;"
 					@longpress.stop="">
-					<view style="color:#0f7bff; margin-right: 8rpx;font-size: 36rpx;font-weight: bold">
+					<view style="color:#0f7bff; margin-right: 8rpx;font-size: 18px;font-weight: bold">
 						{{item.gz.fundcode}}
 					</view>
-					{{item.gz.name}}
-				</view>
+					<view style="font-size: 18px;">{{item.gz.name}}</view>
+				</div>
 				<view style="display: flex; flex-direction: row;gap:12rpx">
 					估值
 					<template v-if="item.gz.gsz">
-						<text>{{item.gz.gsz}}</text>
-						<text style="font-weight: bold;"
-							:style="{color: item.gz.gszzl> 0 ? 'red': 'green'}">{{item.gz.gszzl> 0 ? '+': ''}}{{item.gz.gszzl}}%</text>
-						<text>({{item.gz.gztime}})</text>
+						<view>{{item.gz.gsz}}</view>
+						<view style="font-weight: bold;" :style="{color: item.gz.gszzl> 0 ? 'red': 'green'}">
+							{{item.gz.gszzl> 0 ? '+': ''}}{{item.gz.gszzl}}%
+						</view>
+						<view>({{item.gz.gztime}})</view>
 					</template>
-					<text v-else style="color:#888">暂无</text>
+					<view v-else style="color:#888">暂无</view>
 				</view>
 				<view style="display: flex; flex-direction: row; align-items: center;" @click="RSItap">
-					<text style="margin-right: 12rpx;">RSI(14)</text>
-					<text style="margin-right: 12rpx; font-weight: bold;"
-						:style="{color: item.rsi < 30 || item.rsi > 70 ? 'red':''}">{{item.rsi}}</text>
+					<view style="margin-right: 12rpx;">RSI(14)</view>
+					<view style="margin-right: 12rpx; font-weight: bold;"
+						:style="{color: item.rsi < 30 || item.rsi > 70 ? 'red':''}">{{item.rsi}}</view>
 					<icon type="info" size="18" color="#aaa"></icon>
 				</view>
 			</view>
@@ -65,18 +66,20 @@
 	})
 
 	const fetch = () => {
-		uni.showLoading({ title: '加载中...' })
+		uni.showLoading({ title: '由于使用破烂服务器，初次加载可能较慢...' })
 
 		uni.request({
 			url: `${baseUrl}/fund?ver=2&v=${uni.getStorageSync('fundcode') || '161725'}`,
 			complete(res) {
 				uni.hideLoading()
 				console.log('req com', res);
-				
+
 				if (res.statusCode !== 200) {
 					fetch()
 				} else {
 					list.value = res.data
+
+					uni.setStorageSync('fundcode', res.data.map(e => e.gz.fundcode).join(','))
 				}
 			}
 		})
@@ -110,7 +113,6 @@
 
 <style scope>
 	.btn {
-		font-size: 32rpx;
 		background-color: #0f7bff;
 		color: #FFF;
 	}
