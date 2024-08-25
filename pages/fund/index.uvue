@@ -29,16 +29,21 @@
 					</template>
 					<view v-else style="color:#888">暂无</view>
 				</view>
-				<view style="display: flex; flex-direction: row; align-items: center;" >
-					<view style="margin-right: 12rpx;">RSI(14)</view>
-					<view style="margin-right: 12rpx; font-weight: bold;"
-						:style="{color: item.rsi < 30 || item.rsi > 70 ? 'red':''}">{{item.rsi}}</view>
+				<view style="display: flex; flex-direction: row; align-items: center;">
+					<view style="margin-right: 6rpx;">RSI(14)</view>
+
+					<view style="margin-right: 6rpx; padding: 0 6rpx; border-radius: 2px; font-weight: bold;" :style="{ backgroundColor:  item.rsi <= 30 ? 'green' :  (item.rsi >= 70 ? 'red' : 'unset'),
+						 color: item.rsi <= 30 || item.rsi >= 70 ? '#FFF':  'unset'}">
+						{{item.rsi}} {{item.rsi <= 30 ? '建议买入': item.rsi >= 70? '建议卖出':''}}
+					</view>
+
 					<icon @tap="RSItap" type="info" size="16" color="#aaa"></icon>
 				</view>
 			</view>
 		</view>
-		
-		<view style="font-size: 14px; color: #999; position: fixed; bottom: 4px; width: 100%; text-align: center;">理财有风险，投资需谨慎</view>
+
+		<view style="font-size: 14px; color: #999; position: fixed; bottom: 4px; width: 100%; text-align: center;">
+			理财有风险，投资需谨慎</view>
 	</view>
 </template>
 
@@ -68,7 +73,7 @@
 	})
 
 	const fetch = () => {
-		uni.showLoading({ title: '由于使用破烂服务器，初次加载可能较慢...' })
+		uni.showLoading({ title: '破烂服务器，初次加载较慢，请耐心等待...' })
 
 		uni.request({
 			url: `${baseUrl}/fund?ver=2&v=${uni.getStorageSync('fundcode') || '161725'}`,
@@ -108,7 +113,7 @@
 		uni.showModal({
 			title: 'RSI',
 			showCancel: false,
-			content: `RSI指标是一种技术分析工具，用于衡量股票或其他证券价格在过去一段时间内的相对强弱，帮助投资者判断市场的超买或超卖状态，从而预测价格的潜在反转点。`
+			content: `RSI指标是一种技术分析工具，用于衡量股票或其他证券价格在过去一段时间内的相对强弱。RSI>50，适合卖出，RSI<50，适合买入`
 		})
 	}
 </script>
