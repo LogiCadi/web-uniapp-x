@@ -4,20 +4,20 @@
 			<view style="border: 1px solid #0f7bff; flex: 1; padding: 12rpx; border-radius: 8rpx;">
 				<input v-model="input" style="height: 100%;" placeholder="请输入基金代码 如161725" />
 			</view>
-			<button class="btn" @click="add">添加并查询</button>
+			<button class="btn" @tap="add">添加并查询</button>
 		</view>
 
 		<view>
 			<view v-for="(item, idx) in list"
 				style="display: flex;flex-direction: column;gap: 12rpx;padding: 16rpx; border-bottom: 1px solid #eee;"
 				@longpress="del(idx)">
-				<div style="font-size: 18px;font-weight: bold;display: flex;flex-direction: row; flex-wrap: wrap; align-items: center;"
+				<view style="font-size: 18px;font-weight: bold;display: flex;flex-direction: row; flex-wrap: wrap;"
 					@longpress.stop="">
-					<view style="color:#0f7bff; margin-right: 8rpx;font-size: 18px;font-weight: bold">
+					<view style="float: left; color:#0f7bff; margin-right: 8rpx;font-size: 18px;font-weight: bold">
 						{{item.gz.fundcode}}
 					</view>
-					<view style="font-size: 18px;">{{item.gz.name}}</view>
-				</div>
+					<view style="font-size: 18px;flex: 1">{{item.gz.name}}</view>
+				</view>
 				<view style="display: flex; flex-direction: row;gap:12rpx">
 					估值
 					<template v-if="item.gz.gsz">
@@ -29,14 +29,16 @@
 					</template>
 					<view v-else style="color:#888">暂无</view>
 				</view>
-				<view style="display: flex; flex-direction: row; align-items: center;" @click="RSItap">
+				<view style="display: flex; flex-direction: row; align-items: center;" >
 					<view style="margin-right: 12rpx;">RSI(14)</view>
 					<view style="margin-right: 12rpx; font-weight: bold;"
 						:style="{color: item.rsi < 30 || item.rsi > 70 ? 'red':''}">{{item.rsi}}</view>
-					<icon type="info" size="18" color="#aaa"></icon>
+					<icon @tap="RSItap" type="info" size="16" color="#aaa"></icon>
 				</view>
 			</view>
 		</view>
+		
+		<view style="font-size: 14px; color: #999; position: fixed; bottom: 4px; width: 100%; text-align: center;">理财有风险，投资需谨慎</view>
 	</view>
 </template>
 

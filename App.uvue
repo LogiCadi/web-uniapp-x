@@ -39,10 +39,4 @@
 		max-width: 1200px;
 		margin: auto;
 	}
-
-	* {
-		word-break: break-all !important;
-		word-wrap: break-word !important;
-		white-space: pre-wrap;
-	}
 </style>
