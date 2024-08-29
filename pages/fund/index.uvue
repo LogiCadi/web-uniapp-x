@@ -30,19 +30,19 @@
 					<view v-else style="color:#888">暂无</view>
 				</view>
 				<view style="display: flex; flex-direction: row; align-items: center;">
-					<view style="margin-right: 6rpx;">RSI(14)</view>
+					<view style="margin-right: 6rpx;">与近{{item.analyze.overDays}}日均值比</view>
 
-					<view style="margin-right: 6rpx; padding: 0 6rpx; border-radius: 2px; font-weight: bold;" :style="{ backgroundColor:  item.rsi <= 30 ? 'green' :  (item.rsi >= 70 ? 'red' : 'unset'),
-						 color: item.rsi <= 30 || item.rsi >= 70 ? '#FFF':  'unset'}">
-						{{item.rsi}} {{item.rsi <= 30 ? '建议买入': item.rsi >= 70? '建议卖出':''}}
+					<view>
+						<view :style="{fontWeight: 'bold',color: item.analyze.avg > 0? 'red':'green'}">
+							{{item.analyze.avg > 0 ? '高' +item.analyze.avg+'%' :"低"+ -item.analyze.avg+'%'}}
+						</view>
 					</view>
-
-					<icon @tap="RSItap" type="info" size="16" color="#aaa"></icon>
 				</view>
 			</view>
 		</view>
 
-		<view style="font-size: 14px; color: #999; position: fixed; bottom: 4px; width: 100%; text-align: center;">
+		<view
+			style="font-size: 14px; color: #999; position: fixed; bottom: 4px; left:0; width: 100%; text-align: center;">
 			理财有风险，投资需谨慎</view>
 	</view>
 </template>
