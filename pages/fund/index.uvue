@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view style="display: flex; height: 100%;">
 		<view style="display: flex;flex-direction: row; gap: 12rpx;padding: 12rpx;">
 			<view style="border: 1px solid #0f7bff; flex: 1; padding: 12rpx; border-radius: 8rpx;">
 				<input v-model="input" style="height: 100%;" placeholder="请输入基金代码 如161725" />
@@ -7,7 +7,7 @@
 			<button class="btn" @tap="add">添加并查询</button>
 		</view>
 
-		<view>
+		<view style="flex: 1; overflow: auto;">
 			<view v-for="(item, idx) in list"
 				style="display: flex;flex-direction: column;gap: 12rpx;padding: 16rpx; border-bottom: 1px solid #eee;"
 				@longpress="del(idx)">
@@ -41,8 +41,7 @@
 			</view>
 		</view>
 
-		<view
-			style="font-size: 14px; color: #999; position: fixed; bottom: 4px; left:0; width: 100%; text-align: center;">
+		<view style="font-size: 14px; color: #999;  text-align: center;">
 			理财有风险，投资需谨慎</view>
 	</view>
 </template>
