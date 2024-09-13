@@ -1,5 +1,5 @@
 <template>
-	<view style="display: flex; height: 100%;">
+	<view style="display: flex; min-height: 100%;">
 		<view style="display: flex;flex-direction: row; gap: 12rpx;padding: 12rpx;">
 			<view style="border: 1px solid #0f7bff; flex: 1; padding: 12rpx; border-radius: 8rpx;">
 				<input v-model="input" style="height: 100%;" placeholder="请输入基金代码 如161725" />
@@ -9,7 +9,7 @@
 
 		<view style="flex: 1; overflow: auto;">
 			<view v-for="(item, idx) in list"
-				style="display: flex;flex-direction: column;gap: 12rpx;padding: 16rpx; border-bottom: 1px solid #eee;"
+				style="box-shadow: 0 1px 2px #999; display: flex;flex-direction: column;gap: 12rpx;padding: 16rpx;margin: 8rpx 12rpx; border-radius: 12rpx;"
 				@longpress="del(idx)">
 				<view style="font-size: 18px;font-weight: bold;display: flex;flex-direction: row; flex-wrap: wrap;"
 					@longpress.stop="">
@@ -25,11 +25,11 @@
 						<view style="font-weight: bold;" :style="{color: item.gz.gszzl> 0 ? 'red': 'green'}">
 							{{item.gz.gszzl> 0 ? '+': ''}}{{item.gz.gszzl}}%
 						</view>
-						<view>({{item.gz.gztime}})</view>
+						<view style="color: #666">({{item.gz.gztime}})</view>
 					</template>
 					<view v-else style="color:#888">暂无</view>
 				</view>
-				<view style="display: flex; flex-direction: row; align-items: center;">
+				<view style="display: flex; flex-direction: row;gap: 8rpx; align-items: center;">
 					<view style="margin-right: 6rpx;">与近{{item.analyze.overDays}}日均值比</view>
 
 					<view>
@@ -37,11 +37,13 @@
 							{{item.analyze.avg > 0 ? '高' +item.analyze.avg+'%' :"低"+ -item.analyze.avg+'%'}}
 						</view>
 					</view>
+					
+					<view style="color: #666">({{item.analyze.date}})</view>
 				</view>
 			</view>
 		</view>
 
-		<view style="font-size: 14px; color: #999;  text-align: center;">
+		<view style="font-size: 14px; color: #999;  text-align: center; margin: 12rpx;">
 			理财有风险，投资需谨慎</view>
 	</view>
 </template>
