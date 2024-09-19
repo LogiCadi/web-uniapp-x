@@ -30,14 +30,14 @@
 					<view v-else style="color:#888">暂无</view>
 				</view>
 				<view style="display: flex; flex-direction: row;gap: 8rpx; align-items: center;">
-					<view style="margin-right: 6rpx;">与近{{item.analyze.overDays}}日均值比</view>
+					<view>与近{{item.analyze.overDays}}日均值比</view>
 
-					<view>
-						<view :style="{fontWeight: 'bold',color: item.analyze.avg > 0? 'red':'green'}">
-							{{item.analyze.avg > 0 ? '高' +item.analyze.avg+'%' :"低"+ -item.analyze.avg+'%'}}
-						</view>
+					<view :style="{fontWeight: 'bold',color: item.analyze.avg > 0? 'red':'green'}">
+						{{item.analyze.avg > 0 ? '高' +item.analyze.avg+'%' :"低"+ -item.analyze.avg+'%'}}
 					</view>
-					
+
+					<view v-if="item.analyze.rollback">{{item.analyze.rollback === '恢复定投'?'📉':"📈"}}</view>
+
 					<view style="color: #666">({{item.analyze.date}})</view>
 				</view>
 			</view>
