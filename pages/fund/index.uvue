@@ -32,22 +32,21 @@
 				<view style="display: flex; flex-direction: row;gap: 8rpx; align-items: center;">
 					<view>比近{{item.analyze.overDays}}日均值</view>
 
-					<view :style="{color: item.analyze.avg > 0? 'red':'green'}">
+					<view :style="{fontWeight:'bold',color: item.analyze.avg > 0 ? 'red':'green'}">
 						{{item.analyze.avg > 0 ? '高' +item.analyze.avg+'%' :"低"+ -item.analyze.avg+'%'}}
 					</view>
 
 					<view v-if="item.analyze.rollback">{{item.analyze.rollback === '恢复定投'?'📉':"📈"}}</view>
 
-					<view v-if="item.analyze.avg > 5" style="background-color: red; color: #FFF;">建议卖出</view>
-					<view v-if="item.analyze.avg < -5" style="background-color: green; color: #FFF;">建议买入</view>
+					<view v-if="item.analyze.avg > 5" style="background-color: red; color: #FFF;">风险</view>
+					<view v-if="item.analyze.avg < -5" style="background-color: green; color: #FFF;">机会</view>
 
 					<view style="color: #666">({{item.analyze.date}})</view>
 				</view>
 			</view>
 		</view>
 
-		<view style="font-size: 14px; color: #999;  text-align: center; margin: 12rpx;">
-			理财有风险，投资需谨慎</view>
+		<view style="font-size: 14px; color: #999;  text-align: center; margin: 12rpx;">理财有风险，投资需谨慎</view>
 	</view>
 </template>
 
